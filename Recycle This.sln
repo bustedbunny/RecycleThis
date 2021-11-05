@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecycleThis", "RecycleThis.csproj", "{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{23C8DFF2-310A-4FA7-A2BA-B18AE87483C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA29F0D1-3E89-45AE-A7E2-0C0BE5CD1F0C} = {23C8DFF2-310A-4FA7-A2BA-B18AE87483C1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C415739-9CE8-40E2-BE14-978DF631355F}
+	EndGlobalSection
+EndGlobal
