@@ -31,19 +31,14 @@ namespace RecycleThis
                 return false;
             }
 
-            Thing firstRecyclable = GetFirstWeaponOrApparel(c, base.Map);
-            if (firstRecyclable == null)
+            foreach (Thing thing in c.GetThingList(base.Map))
             {
-                return "MessageMustDesignateWeaponOrApparel".Translate();
+                if (thing != null && CanDesignateThing(thing))
+                {
+                    return true;
+                }
             }
-
-            AcceptanceReport result = CanDesignateThing(firstRecyclable);
-            if (!result.Accepted)
-            {
-                return result;
-            }
-
-            return true;
+            return false;
         }
 
         public override void DesignateSingleCell(IntVec3 c)
@@ -80,25 +75,5 @@ namespace RecycleThis
             base.Map.designationManager.RemoveAllDesignationsOn(t);
             base.Map.designationManager.AddDesignation(new Designation(t, Designation));
         }
-
-
-
-
-        private Thing GetFirstWeaponOrApparel(IntVec3 c, Map map)
-        {
-            List<Thing> list = map.thingGrid.ThingsListAt(c);
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].def.stackLimit < 2 && (list[i].def.IsApparel || list[i].def.IsWeapon))
-                {
-                    return list[i];
-                }
-            }
-            return null;
-        }
-
     }
-
-
-
 }

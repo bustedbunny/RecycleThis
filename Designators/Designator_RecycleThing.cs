@@ -32,19 +32,14 @@ namespace RecycleThis
                 return false;
             }
 
-            Thing firstRecyclable = GetFirstWeaponOrApparel(c, base.Map);
-            if (firstRecyclable == null)
+            foreach (Thing thing in c.GetThingList(base.Map))
             {
-                return "MessageMustDesignateWeaponOrApparel".Translate();
+                if (thing != null && CanDesignateThing(thing))
+                {
+                    return true;
+                }
             }
-
-            AcceptanceReport result = CanDesignateThing(firstRecyclable);
-            if (!result.Accepted)
-            {
-                return result;
-            }
-
-            return true;
+            return false;
         }
 
         public override void DesignateSingleCell(IntVec3 c)
@@ -59,6 +54,26 @@ namespace RecycleThis
             }
         }
 
+        private bool SmeltingIsUseful(Thing t)
+        {
+            if (t.def.smeltProducts != null && t.def.smeltProducts.Count > 0) return true;
+
+            List<ThingDefCountClass> costListAdj = t.def.CostListAdjusted(t.Stuff);
+            for (int j = 0; j < costListAdj.Count; j++)
+            {
+                if (!costListAdj[j].thingDef.intricate)
+                {
+                    int num = GenMath.RoundRandom((float)costListAdj[j].count * 0.25f);
+                    if (num > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
+        }
+
         public override AcceptanceReport CanDesignateThing(Thing t)
         {
 
@@ -66,16 +81,7 @@ namespace RecycleThis
             {
                 return false;
             }
-            int x = 0;
-            foreach (Thing item in t.SmeltProducts(1f))
-            {
-                if (item != null)
-                {
-                    x++;
-                }
-
-            }
-            if (x == 0)
+            if (!SmeltingIsUseful(t))
             {
                 return false;
             }
@@ -92,22 +98,6 @@ namespace RecycleThis
         {
             base.Map.designationManager.RemoveAllDesignationsOn(t);
             base.Map.designationManager.AddDesignation(new Designation(t, Designation));
-        }
-
-
-
-
-        private Thing GetFirstWeaponOrApparel(IntVec3 c, Map map)
-        {
-            List<Thing> list = map.thingGrid.ThingsListAt(c);
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].def.stackLimit < 2 && (list[i].def.IsApparel || list[i].def.IsWeapon))
-                {
-                    return list[i];
-                }
-            }
-            return null;
         }
 
     }
